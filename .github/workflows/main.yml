@@ -10,8 +10,8 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
       - id: echoPayload
           run: |
-          echo Added files: ${{ steps.get_file_changes.outputs.files_added }}
-          echo Changed files: ${{ steps.get_file_changes.outputs.files_modified }}
+            echo Added files: ${{ steps.get_file_changes.outputs.files_added }}
+            echo Changed files: ${{ steps.get_file_changes.outputs.files_modified }}
       - uses: ./action
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
