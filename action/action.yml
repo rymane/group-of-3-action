@@ -1,0 +1,19 @@
+name: "Group of 3 action"
+description: "Check if groups follow the requirements regarding number of members"
+inputs:
+  github-token:
+    default: ${{ github.token }}
+    required: true
+  payload:
+    description: "Json payload of information in the pull request"
+    required: true
+  filesAdded:
+    description: "The added files in the pull request"
+    required: true
+runs: 
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.github-token }}
+    - ${{ inputs.payload }}
+    - ${{ inputs.filesAdded}}
