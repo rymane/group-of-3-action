@@ -1,3 +1,3 @@
 # group-of-3-action
 
-Working on the setup
+Working on the setup ...
