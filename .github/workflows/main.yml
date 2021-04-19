@@ -12,7 +12,7 @@ jobs:
         run: |
           echo Added files: ${{ steps.get_file_changes.outputs.files_added }}
           echo Changed files: ${{ steps.get_file_changes.outputs.files_modified }}
-      - uses: ./action
+      - uses: rymane/group-of-3-action@main
         with: 
           branch: actionSetup
           github-token: ${{ secrets.GITHUB_TOKEN }}
