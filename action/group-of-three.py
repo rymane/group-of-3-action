@@ -4,11 +4,11 @@ import json
 def process_json(payload):
     python_obj = json.loads(payload)
     # fetch main branch, head branch, main repo and repo head
-    branch_main = python_obj["pull_request"]["base"]["ref"]
-    branch_head = python_obj["pull_request"]["head"]["ref"]
-    repo_main = python_obj["pull_request"]["base"]["repo"]["full_name"]
-    repo_head = python_obj["pull_request"]["head"]["repo"]["full_name"]
-    pull_request_number = python_obj["pull_request"]["number"]
+    branch_main = python_obj['pull_request']['base']['ref']
+    branch_head = python_obj['pull_request']['head']['ref']
+    repo_main = python_obj['pull_request']['base']['repo']['full_name']
+    repo_head = python_obj['pull_request']['head']['repo']['full_name']
+    pull_request_number = python_obj['pull_request']['number']
 
     return branch_main, branch_head, repo_main, repo_head, pull_request_number
     
