@@ -1,5 +1,6 @@
 import sys
 import json
+import re
 
 def process_json(payload):
     python_obj = json.loads(payload)
@@ -26,6 +27,8 @@ def main():
     files_added = sys.argv[3]
     files_changed = sys.argv[4]
     files_changed2 = files_changed.split(",")
+    for f in files_changed2:
+        f = re.sub(['^\\\"\[\]]+', '', f)
     print(json.dumps({
         "files":files_changed,
         "files2":files_changed2
