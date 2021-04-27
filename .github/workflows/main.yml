@@ -10,8 +10,8 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
       - id: echoPayload
         run: |
-            payload=$(cat $GITHUB_EVENT_PATH)
-            echo "::set-output name=payload::$payload"
+          payload=$(cat $GITHUB_EVENT_PATH)
+          echo "::set-output name=payload::$payload"
       - uses: rymane/group-of-3-action/action@main
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
