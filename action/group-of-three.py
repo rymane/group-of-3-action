@@ -25,9 +25,9 @@ def main():
     payload = sys.argv[2]
     files_added = sys.argv[3]
     files_changed = sys.argv[4]
-    files_changed2 = files_changed[1:-1].split(",")
+    files_changed2 = files_changed.split(",")
     print(json.dumps({
-        "files":type(files_changed),
+        "files":files_changed,
         "files2":files_changed2
         }))
 
