@@ -27,14 +27,15 @@ def check_student_pr(files):
     task = ""
     num_students = -1
     for f in files:
-        if not len(f) >= 4:
+        if len(f) < 4:
             valid = False
-        if f[0] != 'contributions':
-            valid = False
-        if f[1] not in valid_tasks:
-            valid = False
-        if not 1 <= len(f[2].split('-')) <= 3:
-            valid = False
+        else:
+            if f[0] != 'contributions':
+                valid = False
+            if f[1] not in valid_tasks:
+                valid = False
+            if not 1 <= len(f[2].split('-')) <= 3:
+                valid = False
         valid_files.append(valid)
         valid = True
 
