@@ -28,15 +28,23 @@ def main():
     files_added = sys.argv[3]
     file_parts = process_added_files(files_added)
     files_changed = sys.argv[4]
+    file_changed_parts = process_added_files(files_changed)
+
+    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
     print(json.dumps({
         "file-parts": file_parts,
-        "payload" : payload,
         "files_added" : files_added,
-        "files_changed" : files_changed
+        "files_changed" : files_changed,
+        "files_changed_parts" : file_changed_parts,
+        "main": branch_main,
+        "head" : branch_head,
+        "main-repo": repo_main,
+        "head-repo": repo_head,
+        "pr-num" : pull_request_number
     })) 
     #with open('payload.json') as f:
-    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
+    
 
     #process_json(payload)
 
