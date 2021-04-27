@@ -32,7 +32,7 @@ def main():
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
     print(json.dumps({
-        "file-parts": file_parts,
+        "file-parts": file_added_parts,
         "files_added" : files_added,
         "files_changed" : files_changed,
         "files_changed_parts" : file_changed_parts,
