@@ -10,6 +10,9 @@ inputs:
   filesAdded:
     description: "The added files in the pull request"
     required: true
+  filesChanged:
+    description: "The changed files in the pull request"
+    required: true
 runs: 
   using: "docker"
   image: "Dockerfile"
@@ -17,3 +20,4 @@ runs:
     - ${{ inputs.github-token }}
     - ${{ inputs.payload }}
     - ${{ inputs.filesAdded}}
+    - ${{ inputs.filesChanged}}
