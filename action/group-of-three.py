@@ -17,13 +17,12 @@ def process_added_files(files_added):
     
     has_readme_file = False
     file_parts = files_added.split(",")
-    print(json.dumps(file_parts))
     return file_parts
 
 def main():
     github_token = sys.argv[1]
     payload = sys.argv[2]
-    files_added = sys.argv[3]
+    files_added = sys.argv[3][1]
     file_parts = process_added_files(files_added)
     files_changed = sys.argv[4]
     file_changed_parts = process_added_files(files_changed)
