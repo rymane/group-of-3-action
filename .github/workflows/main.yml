@@ -13,6 +13,9 @@ jobs:
       - id: echoPayload
         run: |
           payload=$(cat $GITHUB_EVENT_PATH)
+          payload="${payload//'%'/'%25'}"
+          payload="${payload//$'\n'/'%0A'}"
+          payload="${payload//$'\r'/'%0D'}"
           echo "::set-output name=payload::$payload"
       - uses: rymane/group-of-3-action/action@setup
         with: 
