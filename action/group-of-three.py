@@ -16,11 +16,9 @@ def process_json(payload):
 def process_added_files(files_added):
     
     has_readme_file = False
-    file_parts = []
-    for f in files_added:
-        print(json.dumps(f))
-        file_parts.append(f.split(','))
-   
+    file_parts = [] 
+    file_parts.append(files_added.split(','))
+    print(json.dumps(file_parts))
     return file_parts
 
 def main():
