@@ -34,19 +34,17 @@ def check_student_pr(files):
                 valid = False
             if f[1] not in valid_tasks:
                 valid = False
+            else:
+                task = f[1]
             if not 1 <= len(f[2].split('-')) <= 3:
                 valid = False
+            else:
+                student_names = f[2].split('-')
+                num_students = len(student_names)
         valid_files.append(valid)
         valid = True
 
-    for i, vf in valid_files:
-        # get task and number of studens from first valid changed/added file
-        if vf == True:
-            task = files[i][1]
-            num_students = len(files[i][2].split('-'))
-            break
-
-    return valid_files, task, num_students
+    return valid_files, task, student_names,num_students
 
 def main():
     github_token = sys.argv[1]
@@ -61,7 +59,7 @@ def main():
     for f in file_changed_parts:
         files_parts.append(f)
 
-    valid_files, task, num_students = check_student_pr(files_parts)
+    valid_files, task, student_names, num_students = check_student_pr(files_parts)
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
@@ -77,6 +75,7 @@ def main():
         "pr-num" : pull_request_number,
         "valid_files" : valid_files,
         "task" : task,
+        "student_names": student_names,
         "num_students": num_students
     })) 
     #with open('payload.json') as f:
