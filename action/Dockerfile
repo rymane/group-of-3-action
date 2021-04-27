@@ -1,5 +1,7 @@
 FROM python:3.7
 
-ADD entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+WORKDIR /app
+COPY . /app
+
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/bin/bash", "/app/entrypoint.sh"]
