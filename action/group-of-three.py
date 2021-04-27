@@ -27,8 +27,9 @@ def main():
     files_added = sys.argv[3]
     files_changed = sys.argv[4]
     files_changed2 = files_changed.split(",")
+    files_changed3 = []
     for f in files_changed2:
-        f = re.sub(['^\\\"\[\]]+', '', f)
+        files_changed3.append = re.sub(['^\\\"\[\]]+', '', f)
     print(json.dumps({
         "files":files_changed,
         "files2":files_changed2
