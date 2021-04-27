@@ -5,16 +5,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
       - name: "Step 1"
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.3
       - id: echoPayload
           run: |
-            echo Added files: ${{ steps.get_file_changes.outputs.files_added }}
-            echo Changed files: ${{ steps.get_file_changes.outputs.files_modified }}
+            payload=$(cat $GITHUB_EVENT_PATH)
+            echo "::set-output name=payload::$payload"
       - uses: ./action
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    
+          payload: ${{steps.echoPayload.output.payload}}
+          added-files: ${{ steps.get_file_changes.outputs.files_added}}
+          changed-files: ${{ steps.get_file_changes.outputs.files_changed }}
