@@ -5,6 +5,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        name: "Step 0"
       - name: "Step 1"
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.3
@@ -15,7 +17,7 @@ jobs:
       - uses: rymane/group-of-3-action/action@setup
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          payload: ${{steps.echoPayload.output.payload}}
+          payload: ${{ steps.echoPayload.outputs.payload}}
           filesAdded: ${{ steps.get_file_changes.outputs.files_added}}
           filesChanged: ${{ steps.get_file_changes.outputs.files_changed }}
 
