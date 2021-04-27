@@ -22,7 +22,7 @@ def process_added_files(files_added):
 def main():
     github_token = sys.argv[1]
     payload = sys.argv[2]
-    files_added = sys.argv[3][1]
+    files_added = sys.argv[3][1:-1].split(",")
     print(json.dumps({
         "files":files_added
         }))
