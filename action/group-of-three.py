@@ -20,6 +20,8 @@ def process_added_files(files_added):
     for f in files_added:
         file_parts.append(f.split('/'))
 
+    print(json.dumps('\\'))
+
     print(json.dumps({
         "file-parts": file_parts
     }))    
