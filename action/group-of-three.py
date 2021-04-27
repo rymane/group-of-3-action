@@ -26,13 +26,12 @@ def main():
     payload = sys.argv[2]
     files_added = sys.argv[3]
     files_changed = sys.argv[4]
-    files_changed2 = files_changed.split(",")
-    files_changed3 = []
-    for f in files_changed2:
-        files_changed3.append = re.sub(['^\\\"\[\]]+', '', f)
+    files_changed2 = re.sub(['^\\\"\[\]]+', '', files_changed)
+    files_changed3 = files_changed2.split(',')
     print(json.dumps({
         "files":files_changed,
-        "files2":files_changed2
+        "files2":files_changed2,
+        "files3":files_changed3
         }))
 
     file_parts = process_added_files(files_added)
