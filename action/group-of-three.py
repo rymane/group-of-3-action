@@ -2,7 +2,7 @@ import sys
 import json
 
 def process_json(payload):
-    python_obj = json.load(payload)
+    python_obj = json.loads(payload)
     # fetch main branch, head branch, main repo and repo head
     branch_main = python_obj["pull_request"]["base"]["ref"]
     branch_head = python_obj["pull_request"]["head"]["ref"]
