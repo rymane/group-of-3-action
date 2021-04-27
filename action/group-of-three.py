@@ -27,7 +27,7 @@ def main():
     files_changed = sys.argv[4]
     files_changed2 = files_changed[1:-1].split(",")
     print(json.dumps({
-        "files":files_changed,
+        "files":type(files_changed),
         "files2":files_changed2
         }))
 
