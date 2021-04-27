@@ -1,6 +1,8 @@
-#!/bin/sh -l
-echo "Script executed from: ${PWD}"
-echo ${ls}
+json_output = $(python3 action/group-of-three.py $1 $2 $3 $4)
 
-output=$(python3 action/group-of-three.py $1 $2 $3 $4)
-echo $output
+ls
+echo "heeeeeeeej"
+echo $json_output
+
+
+python3 action/group-of-three.py 
