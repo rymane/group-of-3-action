@@ -24,9 +24,11 @@ def main():
     github_token = sys.argv[1]
     payload = sys.argv[2]
     files_added = sys.argv[3]
-    files_changed = sys.argv[4][1:-1].split(",")
+    files_changed = sys.argv[4]
+    files_changed2 = files_changed[1:-1].split(",")
     print(json.dumps({
-        "files":files_changed
+        "files":files_changed,
+        "files2":files_changed2
         }))
 
     file_parts = process_added_files(files_added)
