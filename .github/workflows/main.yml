@@ -8,13 +8,14 @@ jobs:
       - name: "Step 1"
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.3
-      - id: echoPayload 
-        run: |  
-          payload=$(cat $GITHUB_EVENT_PATH)
-          echo "::set-output name=payload::$payload"
+      - id: echoPayload
+        run: |
+            payload=$(cat $GITHUB_EVENT_PATH)
+            echo "::set-output name=payload::$payload"
       - uses: rymane/group-of-3-action/action@main
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           payload: ${{steps.echoPayload.output.payload}}
           added-files: ${{ steps.get_file_changes.outputs.files_added}}
           changed-files: ${{ steps.get_file_changes.outputs.files_changed }}
+
