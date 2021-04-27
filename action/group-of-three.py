@@ -16,7 +16,6 @@ def process_json(payload):
 
 def process_added_files(files_added):
     file_parts = []
-    has_readme_file = False
     for f in files_added:
         file_parts.append(f.split('/'))
     return file_parts
@@ -24,17 +23,10 @@ def process_added_files(files_added):
 def main():
     github_token = sys.argv[1]
     payload = sys.argv[2]
-    files_added = sys.argv[3]
-    files_changed = sys.argv[4]
-    files_changed2 = re.sub('[\\\"\[\]]+', '', files_changed)
-    files_changed3 = files_changed2.split(',')
-    print(json.dumps({
-        "files":files_changed,
-        "files2":files_changed2,
-        "files3":files_changed3
-        }))
+    files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
+    files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
 
-    file_parts = process_added_files(files_added)
+    file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
