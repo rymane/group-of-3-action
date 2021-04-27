@@ -14,9 +14,10 @@ def process_json(payload):
     
 
 def process_added_files(files_added):
-    
+    file_parts = []
     has_readme_file = False
-    file_parts = files_added.split(",")
+    for f in files_added:
+        file_parts.append(f.split('/'))
     return file_parts
 
 def main():
