@@ -18,7 +18,7 @@ def process_added_files(files_added):
     has_readme_file = False
     file_parts = []
     for f in files_added:
-        file_parts.append(f.split('\\'))
+        file_parts.append(f.split(','))
    
     return file_parts
 
