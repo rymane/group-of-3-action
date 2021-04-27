@@ -19,5 +19,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           payload: ${{ steps.echoPayload.outputs.payload}}
           filesAdded: ${{ steps.get_file_changes.outputs.files_added}}
-          filesChanged: ${{ steps.get_file_changes.outputs.files_changed }}
+          filesChanged: ${{ steps.get_file_changes.outputs.files_modified }}
 
