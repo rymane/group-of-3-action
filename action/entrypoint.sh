@@ -2,5 +2,7 @@
 echo "Script executed from: ${PWD}"
 echo "Files are: ${LS}"
 
-output= $(python3 ../../action/group-of-three.py "$1" "$2" "$3" "$4")
-echo output
+echo $1
+echo $2
+echo $3
+echo $4
