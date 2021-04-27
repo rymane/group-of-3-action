@@ -24,8 +24,7 @@ def main():
     payload = sys.argv[2]
     files_added = sys.argv[3][1]
     print(json.dumps({
-        "files":files_added,
-        "type" :type(files_added)
+        "files":files_added
         }))
 
     file_parts = process_added_files(files_added)
