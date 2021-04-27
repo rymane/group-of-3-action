@@ -19,22 +19,27 @@ def process_added_files(files_added):
     file_parts = []
     for f in files_added:
         file_parts.append(f.split('/'))
-
-    print(json.dumps({
-        "file-parts": file_parts
-    }))    
-
+   
+    return file_parts
 
 def main():
     print(json.dumps('\\'))
     github_token = sys.argv[1]
     payload = sys.argv[2]
-    process_added_files(sys.argv[3])
+    files_added = sys.argv[3]
+    file_parts = process_added_files(files_added)
     files_changed = sys.argv[4]
     #with open('payload.json') as f:
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
     #process_json(payload)
+
+    print(json.dumps({
+        "file-parts": file_parts,
+        "payload" : payload,
+        "files_added" : files_added,
+        "files_changed" : files_changed
+    })) 
 
 if __name__ == "__main__":
     main()
