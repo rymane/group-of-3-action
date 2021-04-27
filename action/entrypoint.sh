@@ -1,4 +1,3 @@
 #!/bin/sh -l
 
-
-sh -c "echo Hello $1 $2 $3 $4"
+echo python3 group-of-three.py "$1" "$2" "$3" "$4"
