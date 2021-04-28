@@ -60,18 +60,23 @@ def group_of_three(task, num_students, valid_task_three):
     return valid
 
 def write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_task_three):
-    valid_group_of_three = group_of_three(task, num_students, valid_task_three)
-    if valid_group_of_three:
-        comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
-        create_pr_comment(github_token, repo_main, pull_request_number, comment)
-    else:
-        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            
-        create_pr_comment(github_token, repo_main, pull_request_number, comment)
-
-
-def create_pr_comment(github_token, repo_main, pull_request_number, comment):
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
+    labels = Pull_request.get_labels()
+    if "GroupOfThree" in labels:
+        if num_students < 3:
+            Pull_request.remove_from_labels("GroupOfThree")
+    else: 
+        if num_students == 3:
+            valid_group_of_three = group_of_three(task, num_students, valid_task_three)
+            if valid_group_of_three:
+                comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
+                create_pr_comment(Pull_request, comment)
+            else:
+                comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            
+                create_pr_comment(Pull_request, comment)
+
+def create_pr_comment(Pull_request, comment):
     Pull_request.create_issue_comment(comment) 
     Pull_request.set_labels("GroupOfThree")
 
@@ -104,8 +109,8 @@ def main():
 
     valid_files, task, student_names, num_students = check_student_pr(files_parts, valid_tasks)
 
-    if num_students == 3:  
-        write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_tasks_three)
+    
+    write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_tasks_three)
         
         
     print(json.dumps({
