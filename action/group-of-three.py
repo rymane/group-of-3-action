@@ -70,14 +70,7 @@ Process the expected input from command line:
 """
 def main():
     github_token = sys.argv[1]
-    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
-
-    # Test to extract github  info
-    g = Github(github_token)
-    Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-    print(json.dumps({
-        "repo": Pull_request
-    }))
+    
 
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
@@ -91,6 +84,14 @@ def main():
     for f in file_changed_parts:
         files_parts.append(f)
 
+    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
+
+    # Test to extract github  info
+    g = Github(github_token)
+    Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
+    print(json.dumps({
+        "repo": Pull_request
+    }))
 
     valid_files, task, student_names, num_students = check_student_pr(files_parts)
 
