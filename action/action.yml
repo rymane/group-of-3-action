@@ -13,6 +13,16 @@ inputs:
   filesChanged:
     description: "The changed files in the pull request"
     required: true
+  validTask:
+    description: "The tasks available to choose from"
+    required: true
+    default: ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
+  validTask3Students: 
+    description: "The tasks available to choose from for groups with 3 students"
+    required: true
+    default: ['demo', 'essay', 'open-source']
+
+
 runs: 
   using: "docker"
   image: "Dockerfile"
@@ -21,3 +31,5 @@ runs:
     - ${{ inputs.payload }}
     - ${{ inputs.filesAdded}}
     - ${{ inputs.filesChanged}}
+    - ${{ inputs.validTask }}
+    - ${{ inputs.validTask3Students}}
