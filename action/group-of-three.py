@@ -70,6 +70,14 @@ Process the expected input from command line:
 """
 def main():
     github_token = sys.argv[1]
+    
+    # Test to extract github  info
+    g = github(github_token)
+    for repo in g.get_user().get_repo():
+        print(json.dumps({
+            "repo": repo
+        }))
+    
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
