@@ -51,8 +51,7 @@ def check_student_pr(files, valid_tasks):
 
     return valid_files, task, student_names,num_students
 
-def group_of_three(task, num_students):
-    valid_task_three = ['essay', 'demo', 'open-source']
+def group_of_three(task, num_students, valid_task_three):
     valid = True
     if num_students == 3:
         if task not in valid_task_three:
@@ -60,8 +59,8 @@ def group_of_three(task, num_students):
 
     return valid
 
-def write_comment(github_token, repo_main, pull_request_number, task, num_students):
-    valid_group_of_three = group_of_three(task, num_students)
+def write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_task_three):
+    valid_group_of_three = group_of_three(task, num_students, valid_task_three)
     if valid_group_of_three:
         comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
         create_pr_comment(github_token, repo_main, pull_request_number, comment)
@@ -105,7 +104,7 @@ def main():
     valid_files, task, student_names, num_students = check_student_pr(files_parts, valid_tasks)
 
     if num_students == 3:  
-        write_comment(github_token, repo_main, pull_request_number, task, num_students)
+        write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_tasks_three)
         
         
     print(json.dumps({
@@ -121,8 +120,7 @@ def main():
         "valid_files" : valid_files,
         "task" : task,
         "student_names": student_names,
-        "num_students": num_students,
-        "test" : valid_tasks_three
+        "num_students": num_students
         }))
 
 
