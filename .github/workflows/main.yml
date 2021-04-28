@@ -23,5 +23,4 @@ jobs:
           payload: ${{ steps.echoPayload.outputs.payload}}
           filesAdded: ${{ steps.get_file_changes.outputs.files_added}}
           filesChanged: ${{ steps.get_file_changes.outputs.files_modified }}
-          validTasks: ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
-          #validTasks: course-automation/demo/essay/executable-tutorial/feedback/open-source/presentation
+          validTasks: course-automation/demo/essay/executable-tutorial/feedback/open-source/presentation

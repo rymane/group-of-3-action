@@ -94,7 +94,7 @@ def main():
     file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
 
-    test = sys.argv[5]
+    test = sys.argv[5].split('/')
     # append added files and changed files into one list.
     files_parts = file_added_parts
     for f in file_changed_parts:
