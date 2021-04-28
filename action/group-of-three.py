@@ -65,7 +65,7 @@ def write_comment(github_token, repo_main, pull_request_number, task, num_studen
    # labels = Pull_request.get_labels()
     labels = []
     for l in Pull_request.get_labels():
-        labels.append(l)
+        labels.append(l[1])
     print(json.dumps({ 
         "labels": labels
 
