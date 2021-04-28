@@ -61,6 +61,21 @@ def group_of_three(task, num_students):
 
     return valid
 
+def write_comment(github_token, repo_main, pull_request_number, task, num_students):
+    valid_group_of_three = group_of_three(task, num_students)
+    if valid_group_of_three:
+            comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
+            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+    else:
+        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+        create_pr_comment(github_token, repo_main, pull_request_number, comment)
+
+
+def create_pr_comment(github_token, repo_main, pull_request_number, comment):
+    g = Github(github_token)
+    Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
+    Pull_request.create_issue_comment("test comment") 
+
 """ 
 Process the expected input from command line:
 - Guthub  token
@@ -86,21 +101,12 @@ def main():
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
-    # Test to extract github  info
-    g = Github(github_token)
-    Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-    Pull_request.create_issue_comment("test comment") 
-
     valid_files, task, student_names, num_students = check_student_pr(files_parts)
 
-    if num_students == 2:
-        # Produce the content for commenting on PR.
-        print(" ")
-    elif num_students == 3:
-        valid_group_of_three = group_of_three(task, num_students)
-        # Produce the content for commenting on PR.
-
-
+    if num_students == 3:  
+        write_comment(github_token, repo_main, pull_request_number, task, num_students)
+        
+        
     print(json.dumps({
         "file_added_parts": file_added_parts,
         "files_added" : files_added,
