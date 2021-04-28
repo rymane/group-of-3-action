@@ -62,16 +62,10 @@ def group_of_three(task, num_students, valid_task_three):
 def write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_task_three):
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-   # labels = Pull_request.get_labels()
-    labels = []
-    for l in Pull_request.get_labels():
-        labels.append(l[1])
-    print(json.dumps({ 
-        "labels": labels
+    label = Pull_request.get_label("GroupOfThree")
+    labels = Pull_request.get_labels()
 
-    }))
-
-    if "GroupOfThree" in labels:
+    if label in labels:
         if num_students < 3:
             Pull_request.remove_from_labels("GroupOfThree")
     else: 
