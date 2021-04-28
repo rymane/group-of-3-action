@@ -73,7 +73,7 @@ def main():
     
     # Test to extract github  info
     g = Github(github_token)
-    for repo in g.get_user().get_repo():
+    for repo in g.get_user().get_repos():
         print(json.dumps({
             "repo": repo
         }))
