@@ -89,9 +89,7 @@ def main():
     # Test to extract github  info
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-    print(json.dumps({
-        "repo": Pull_request
-    }))
+    Pull_request.create_comment("test comment") 
 
     valid_files, task, student_names, num_students = check_student_pr(files_parts)
 
