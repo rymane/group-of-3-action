@@ -120,9 +120,8 @@ def main():
         "valid_files" : valid_files,
         "task" : task,
         "student_names": student_names,
-        "num_students": num_students,
-        "test" : test
-    }))
+        "num_students": num_students
+        }))
 
 
 if __name__ == "__main__":
