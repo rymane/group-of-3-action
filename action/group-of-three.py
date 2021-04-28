@@ -26,10 +26,9 @@ Check PR to see if it is a course contribution with a path "/contributions/ .."
 and that PR is for a valid task e.g. demo, essay etc. 
 Lastly, the number of students contributed to the PR is extracted.  
 """
-def check_student_pr(files):
+def check_student_pr(files, valid_tasks):
     valid = True
     valid_files = []
-    valid_tasks = ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
     task = ""
     num_students = -1
     for f in files:
@@ -90,11 +89,11 @@ def main():
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
+    valid_tasks = sys.argv[5].split('/')
 
     file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
 
-    test = sys.argv[5].split('/')
     # append added files and changed files into one list.
     files_parts = file_added_parts
     for f in file_changed_parts:
@@ -102,7 +101,7 @@ def main():
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
-    valid_files, task, student_names, num_students = check_student_pr(files_parts)
+    valid_files, task, student_names, num_students = check_student_pr(files_parts, valid_tasks)
 
     if num_students == 3:  
         write_comment(github_token, repo_main, pull_request_number, task, num_students)
