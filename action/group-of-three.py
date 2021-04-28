@@ -29,6 +29,7 @@ Lastly, the number of students contributed to the PR is extracted.
 def check_student_pr(files, valid_tasks):
     valid = True
     valid_files = []
+    valid_task = ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
     task = ""
     num_students = -1
     for f in files:
@@ -51,7 +52,8 @@ def check_student_pr(files, valid_tasks):
 
     return valid_files, task, student_names,num_students
 
-def group_of_three(task, num_students, valid_task_three):
+def group_of_three(task, num_students):
+    valid_task_three = ['essay', 'demo', 'open-source']
     valid = True
     if num_students == 3:
         if task not in valid_task_three:
@@ -88,8 +90,6 @@ def main():
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
-    validTasks = sys.argv[5]
-    validTasks3Students = sys.argv[6]
 
     file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
@@ -101,10 +101,10 @@ def main():
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
-    valid_files, task, student_names, num_students = check_student_pr(files_parts, validTasks)
+    valid_files, task, student_names, num_students = check_student_pr(files_parts)
 
     if num_students == 3:  
-        write_comment(github_token, repo_main, pull_request_number, task, num_students, validTasks3Students)
+        write_comment(github_token, repo_main, pull_request_number, task, num_students)
         
         
     print(json.dumps({
