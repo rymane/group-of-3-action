@@ -21,3 +21,5 @@ runs:
     - ${{ inputs.payload }}
     - ${{ inputs.filesAdded}}
     - ${{ inputs.filesChanged}}
+    - ${{ inputs.validTasks }}
+    - ${{ inputs.validTasks3Students }}
