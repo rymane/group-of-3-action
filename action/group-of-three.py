@@ -26,10 +26,9 @@ Check PR to see if it is a course contribution with a path "/contributions/ .."
 and that PR is for a valid task e.g. demo, essay etc. 
 Lastly, the number of students contributed to the PR is extracted.  
 """
-def check_student_pr(files):
+def check_student_pr(files, valid_tasks):
     valid = True
     valid_files = []
-    valid_tasks = ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
     task = ""
     num_students = -1
     for f in files:
@@ -52,8 +51,7 @@ def check_student_pr(files):
 
     return valid_files, task, student_names,num_students
 
-def group_of_three(task, num_students):
-    valid_task_three = ['essay', 'demo', 'open-source']
+def group_of_three(task, num_students, valid_task_three):
     valid = True
     if num_students == 3:
         if task not in valid_task_three:
@@ -61,20 +59,20 @@ def group_of_three(task, num_students):
 
     return valid
 
-def write_comment(github_token, repo_main, pull_request_number, task, num_students):
-    valid_group_of_three = group_of_three(task, num_students)
+def write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_group_of_three):
+    valid_group_of_three = group_of_three(task, num_students, valid_group_of_three)
     if valid_group_of_three:
-            comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
-            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+        comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
+        create_pr_comment(github_token, repo_main, pull_request_number, comment)
     else:
-        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            
         create_pr_comment(github_token, repo_main, pull_request_number, comment)
 
 
 def create_pr_comment(github_token, repo_main, pull_request_number, comment):
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-    Pull_request.create_issue_comment("test comment") 
+    Pull_request.create_issue_comment(comment) 
 
 """ 
 Process the expected input from command line:
@@ -90,6 +88,8 @@ def main():
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
+    validTasks = sys.argv[5]
+    validTasks3Students = sys.argv[6]
 
     file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
@@ -101,10 +101,10 @@ def main():
 
     branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
-    valid_files, task, student_names, num_students = check_student_pr(files_parts)
+    valid_files, task, student_names, num_students = check_student_pr(files_parts, validTasks)
 
     if num_students == 3:  
-        write_comment(github_token, repo_main, pull_request_number, task, num_students)
+        write_comment(github_token, repo_main, pull_request_number, task, num_students, validTasks3Students)
         
         
     print(json.dumps({
