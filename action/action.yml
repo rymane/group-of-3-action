@@ -17,10 +17,6 @@ inputs:
     description: "The tasks available to choose from"
     required: true
     default: course-automation/demo/essay/executable-tutorial/feedback/open-source/presentation
-  validTasks3Students: 
-    description: "The tasks available to choose from for groups with 3 students"
-    required: true
-    default: demo/essay/open-source
 runs: 
   using: "docker"
   image: "Dockerfile"
@@ -30,4 +26,3 @@ runs:
     - ${{ inputs.filesAdded}}
     - ${{ inputs.filesChanged}}
     - ${{ inputs.validTasks }}
-    - ${{ inputs.validTasks3Students}}
