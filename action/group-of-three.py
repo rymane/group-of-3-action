@@ -64,10 +64,10 @@ def group_of_three(task, num_students):
 def write_comment(github_token, repo_main, pull_request_number, task, num_students):
     valid_group_of_three = group_of_three(task, num_students)
     if valid_group_of_three:
-            comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
-            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+        comment = "This group consists of 3 students and the task is " + task + ", which is an accepted task as long as the work is ambitious."
+        create_pr_comment(github_token, repo_main, pull_request_number, comment)
     else:
-        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            create_pr_comment(github_token, repo_main, pull_request_number, comment)
+        comment = "This group consists of 3 students and the task is " + task + ", which is unfortunately not an accepted task for 3 students. Please change the task or change your group constellation."            
         create_pr_comment(github_token, repo_main, pull_request_number, comment)
 
 
