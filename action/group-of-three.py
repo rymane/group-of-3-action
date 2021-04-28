@@ -1,6 +1,7 @@
 import sys
 import json
 import re
+from github import Github
 
 def process_json(payload):
     python_obj = json.loads(payload)
