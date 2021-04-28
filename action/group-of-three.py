@@ -63,6 +63,11 @@ def write_comment(github_token, repo_main, pull_request_number, task, num_studen
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
     labels = Pull_request.get_labels()
+    print(json.dumps({ 
+        "labels": labels
+
+    }))
+
     if "GroupOfThree" in labels:
         if num_students < 3:
             Pull_request.remove_from_labels("GroupOfThree")
