@@ -70,14 +70,15 @@ Process the expected input from command line:
 """
 def main():
     github_token = sys.argv[1]
-    
+    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
+
     # Test to extract github  info
     g = Github(github_token)
-    for repo in g.get_user().get_repos():
-        print(json.dumps({
-            "repo": repo
-        }))
-    
+    Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
+    print(json.dumps({
+        "repo": Pull_request
+    }))
+
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
@@ -100,7 +101,6 @@ def main():
         valid_group_of_three = group_of_three(task, num_students)
         # Produce the content for commenting on PR.
 
-    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
 
     print(json.dumps({
         "file_added_parts": file_added_parts,
