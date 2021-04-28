@@ -26,10 +26,10 @@ Check PR to see if it is a course contribution with a path "/contributions/ .."
 and that PR is for a valid task e.g. demo, essay etc. 
 Lastly, the number of students contributed to the PR is extracted.  
 """
-def check_student_pr(files, valid_tasks):
+def check_student_pr(files):
     valid = True
     valid_files = []
-    valid_task = ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
+    valid_tasks = ['course-automation', 'demo', 'essay', 'executable-tutorial', 'feedback', 'open-source', 'presentation']
     task = ""
     num_students = -1
     for f in files:
