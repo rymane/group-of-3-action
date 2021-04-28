@@ -90,6 +90,7 @@ def main():
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
     valid_tasks = sys.argv[5].split('/')
+    valid_tasks_three = sys.argv[6].split('/')
 
     file_added_parts = process_added_files(files_added)
     file_changed_parts = process_added_files(files_changed)
@@ -120,7 +121,8 @@ def main():
         "valid_files" : valid_files,
         "task" : task,
         "student_names": student_names,
-        "num_students": num_students
+        "num_students": num_students,
+        "test" : valid_tasks_three
         }))
 
 
