@@ -74,7 +74,7 @@ def write_comment(github_token, repo_main, pull_request_number, task, num_studen
 def create_pr_comment(github_token, repo_main, pull_request_number, comment):
     g = Github(github_token)
     Pull_request = g.get_repo(repo_main).get_pull(pull_request_number)
-    Pull_request.create_issue_comment("test comment") 
+    Pull_request.create_issue_comment(comment) 
 
 """ 
 Process the expected input from command line:
