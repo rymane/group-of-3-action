@@ -46,3 +46,13 @@ jobs:
 - validTasksGroupThree - the tasks in the DevOps course where it is allowed to be a group of three.
 
 **NOTE** The last 2 inputs, ```validTasks, validTasksGroupThree``` are set to 2021's group rules. If this were to change in following years this input should change to reflect that.
+
+### Tests
+The directory **contributions** is made for testing. It contains 2 additional directories, named after valid tasks in the course. To test, perform these steps:
+
+1. Checkout a new testing branch
+2. Change something in one of the test files
+3. Commit and push the changes
+4. Create a new pull request
+
+This will trigger the workflow, and a comment will be written on the pull request. If the test was made on a "submission" with 3 names, a "GroupOfThree" label will also be added to the pull request.
