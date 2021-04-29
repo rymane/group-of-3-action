@@ -1,15 +1,18 @@
-name: "Workflow for action"
+name: "Workflow for group-of-3-action"
 on:
   pull_request_target:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout latest version of repo
       - uses: actions/checkout@v2
-        name: "Step 0"
-      - name: "Step 1"
+        name: "Checkout"
+      # Use trilom/file_changes_action to get changed and added files
+      - name: "Get file changes"
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.4
+      # Get Github event path and escape %, \n and \r characters
       - id: echoPayload
         run: |
           payload=$(cat $GITHUB_EVENT_PATH)
@@ -17,6 +20,7 @@ jobs:
           payload="${payload//$'\n'/'%0A'}"
           payload="${payload//$'\r'/'%0D'}"
           echo "::set-output name=payload::$payload"
+      # Our action, validTasks and validTasksGroupThree can be changed if the course changes
       - uses: rymane/group-of-3-action/action@main
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
