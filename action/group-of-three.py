@@ -5,14 +5,11 @@ from github import Github
 
 def process_json(payload):
     python_obj = json.loads(payload)
-    # fetch main branch and repo, head branch and repo (forked)
-    branch_main = python_obj['pull_request']['base']['ref']
-    branch_head = python_obj['pull_request']['head']['ref']
+    # fetch main branch and pull request number
     repo_main = python_obj['pull_request']['base']['repo']['full_name']
-    repo_head = python_obj['pull_request']['head']['repo']['full_name']
     pull_request_number = python_obj['pull_request']['number']
 
-    return branch_main, branch_head, repo_main, repo_head, pull_request_number
+    return repo_main, pull_request_number
     
 # Split added and changed files
 def process_added_files(files):
@@ -48,7 +45,6 @@ def check_student_pr(files, valid_tasks):
                 num_students = len(student_names)
         valid_files.append(valid)
         valid = True
-
     return valid_files, task, student_names,num_students
 
 def group_of_three(task, num_students, valid_task_three):
@@ -56,7 +52,6 @@ def group_of_three(task, num_students, valid_task_three):
     if num_students == 3:
         if task not in valid_task_three:
             valid = False
-
     return valid
 
 def write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_task_three):
@@ -85,15 +80,15 @@ def create_pr_comment(Pull_request, comment):
 
 """ 
 Process the expected input from command line:
-- Guthub  token
+- Guthub token
 - Payload from pull request
 - List of filepaths for files added 
 - List of filepaths for files changed
+- Valid tasks for students to choose from
+- Valid tasks for groups of 3 to choose from.
 """
 def main():
     github_token = sys.argv[1]
-    
-
     payload = sys.argv[2]
     files_added = re.sub('[\\\"\[\]]+', '', sys.argv[3]).split(',')
     files_changed = re.sub('[\\\"\[\]]+', '', sys.argv[4]).split(',')
@@ -108,28 +103,21 @@ def main():
     for f in file_changed_parts:
         files_parts.append(f)
 
-    branch_main, branch_head, repo_main, repo_head, pull_request_number = process_json(payload)
+    repo_main, pull_request_number = process_json(payload)
 
     valid_files, task, student_names, num_students = check_student_pr(files_parts, valid_tasks)
 
-    
+    # If none of the added or changed files is a valid student submission, return nothing
+    if True not in valid_files:
+        return
+            
     write_comment(github_token, repo_main, pull_request_number, task, num_students, valid_tasks_three)
         
         
-    print(json.dumps({
-        "file_added_parts": file_added_parts,
-        "files_added" : files_added,
-        "files_changed" : files_changed,
-        "files_changed_parts" : file_changed_parts,
-        "main": branch_main,
-        "head" : branch_head,
-        "main-repo": repo_main,
-        "head-repo": repo_head,
-        "pr-num" : pull_request_number,
-        "valid_files" : valid_files,
-        "task" : task,
-        "student_names": student_names,
-        "num_students": num_students
+    print(json.dumps({   
+        "The students": student_names, 
+        "Their task" : task,
+        "The number of students": num_students
         }))
 
 
