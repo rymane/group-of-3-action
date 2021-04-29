@@ -1,3 +1,3 @@
 ## title
 
-some text
+We will write a great essay about elephants!
