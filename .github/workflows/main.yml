@@ -1,4 +1,4 @@
-name: "Workflow for action"
+name: "Workflow for group-of-3-action"
 on:
   pull_request_target:
 jobs:
